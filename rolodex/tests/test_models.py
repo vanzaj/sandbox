@@ -5,25 +5,22 @@
 
 import pytest
 from pydantic import ValidationError
-from rolodex.contact import Contact, ContactCategory
+from rolodex.contact import Contact
 
 
-def test_make_contact_from_valid_dict():
-    data = dict(first_name="John", last_name="Doe", category="family")
-    a_contact = Contact(**data)
+def test_make_contact():
+    a_contact = Contact(first_name="John", last_name="Doe", category="family")
     assert a_contact.name == "John Doe"
     assert a_contact.category == "family"
 
 
 def test_make_contact_from_first_name_only():
-    data = dict(first_name="John")
-    a_contact = Contact(**data)
+    a_contact = Contact(first_name="John")
     assert a_contact.name == "John"
     assert a_contact.category == "other"
 
 
-def test_fail_contact_from_empty_first_name():
-    data = dict(first_name=" ")
+def test_make_contact_from_empty_first_name_throws_error():
     with pytest.raises(ValidationError) as exception:
-        Contact(**data)
-    assert "String should have at least 1 character" in str(exception.value)
+        Contact(first_name=" ")
+    assert "should have at least 1 character" in str(exception.value)

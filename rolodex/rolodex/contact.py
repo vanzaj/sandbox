@@ -17,5 +17,5 @@ class Contact(BaseModel):
     def name(self) -> str:
         result = self.first_name
         if self.last_name:
-            result += " "  + self.last_name
+            result += " " + self.last_name
         return result
