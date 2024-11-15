@@ -1,7 +1,7 @@
 from api import client
 
 model = "chatgpt-4o-latest"
-prefix = "\n\n"
+
 messages = [
     {
     "role": "system",
