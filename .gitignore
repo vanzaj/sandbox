@@ -12,3 +12,4 @@ venv/
 .env
 *.pyc
 *.db
+__marimo__
