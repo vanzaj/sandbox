@@ -8,8 +8,9 @@ __pycache__/
 htmlcov/
 venv/
 .venv/
+__marimo__
+
 .DS_Store
 .env
 *.pyc
 *.db
-__marimo__
