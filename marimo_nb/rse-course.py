@@ -70,6 +70,73 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ## Exercise 2a/2b: Occupancy dict
+    """)
+    return
+
+
+@app.cell
+def _():
+    house = {
+        "living": {
+            "exits": {"north": "kitchen", "outside": "garden", "upstairs": "bedroom"},
+            "people": ["James"],
+            "capacity": 2,
+        },
+        "kitchen": {"exits": {"south": "living"}, "people": [], "capacity": 1},
+        "garden": {"exits": {"inside": "living"}, "people": ["Sue"], "capacity": 3},
+        "bedroom": {
+            "exits": {"downstairs": "living", "jump": "garden"},
+            "people": [],
+            "capacity": 1,
+        },
+    }
+    return (house,)
+
+
+@app.cell
+def _(house):
+    capa = {}
+    for room in house.keys():
+        capa[room] = house[room]["capacity"]
+    print(capa)
+    return
+
+
+@app.cell
+def _(house):
+    people = {k: len(v["people"]) for k, v in house.items() if len(v["people"]) > 0}
+    print(people)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Exercise 2c
+    """)
+    return
+
+
+@app.cell
+def _():
+    inp = (1, 1.99999999999, "three", 20/5, 5, 6, "sju", "8", 9, 10., 11, 12)
+
+    def even_int_only(*args):
+        return [a for a in args if type(a) == int and a % 2 == 0]
+
+    return even_int_only, inp
+
+
+@app.cell
+def _(even_int_only, inp):
+    even_int_only(*inp)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## 2.3 Working with files
     """)
     return
@@ -103,11 +170,9 @@ def _(p, pp):
 
 
 @app.cell
-def _():
-    # magic command not supported in marimo; please file an issue to add support
-    # %%writefile {p}
-    # Hello world
-    # I have nothing to say
+def _(p):
+    p.write_text("""Hello world
+    I have nothing to say""")
     return
 
 
@@ -129,9 +194,8 @@ def _(mo):
 @app.cell
 def _():
     import requests
-    from IPython.display import Image
 
-    return Image, requests
+    return (requests,)
 
 
 @app.cell
@@ -151,8 +215,8 @@ def _(requests):
 
 
 @app.cell
-def _(Image, response):
-    Image(response.content)
+def _(mo, response):
+    mo.image(response.content)
     return
 
 
